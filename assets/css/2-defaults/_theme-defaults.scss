@@ -1,0 +1,49 @@
+@media screen{
+  /*html & body*/
+  html, body{
+    height: 100%;
+  }
+  body{
+    display: flex;
+    flex-direction: column;
+  }
+
+  /*header*/
+  #header{
+    position: fixed;
+    background-color: #444;
+    color: white;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  /*mobile menu*/
+  #mobile-menu{
+    position: absolute;
+    top: 0;
+    left: -350px;
+    height: 100%;
+    width: 100%;
+    max-width: 350px;
+    background-color: #444;
+    overflow: auto;
+    z-index: 11;
+  }
+
+  /*main-wrapper*/
+  #main-wrapper{
+    flex: 1 0 auto;
+    position: relative;
+    padding-top: 48px;
+    @media (min-width: 992px){
+      padding-top: 24px;
+    }
+  }
+
+  /*footer*/
+  #footer{
+    flex-shrink: 0;
+  }
+}

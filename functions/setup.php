@@ -1,7 +1,4 @@
 <?php
-/*error_reporting(E_ALL);
-ini_set('display_errors', 1);*/
-
 // ENQUEUE SCRIPTS & STYLES
 add_action( 'wp_enqueue_scripts', function(){
 	// DEREGISTER DEFAULT WORDPRESS JQUERY FILE
