@@ -12,6 +12,7 @@
   	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+	<!-- Don't remove this -->
 	<?php do_action( "after_body_tag" ); ?>
 
 	<!--[if lt IE 9]>
@@ -24,24 +25,55 @@
 	<!-- MOBILE MENU -->
 	<aside id="mobile-menu">
 		<div class="mobile-menu-wrap">
+			<div class="mobile-search">
+                <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get" class="search-form" role="search" id="searchform">
+                    <input type="search" autocomplete="off" id="s" placeholder="Search" value="<?php echo trim( esc_attr( get_search_query() ) ); ?>" name="s" placeholder="Search" required>
+                    <button><span class="fa fa-search"></span></button>
+                </form>
+            </div>
 			<?php
 				if ( is_active_sidebar( 'mobile-menu-widget' ) ){
 	        		dynamic_sidebar( 'mobile-menu-widget' );
         		}
 			?>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis ex, animi saepe impedit voluptatibus incidunt nobis aliquid a quia vel quidem velit, laborum modi ipsam, doloribus ut voluptatum dolore rerum. Odit officiis dicta, atque animi non doloribus odio optio mollitia aliquam nisi, velit inventore minus consequuntur exercitationem dignissimos vel possimus unde amet fugit nam quisquam perferendis cupiditate ex. Pariatur optio, id, voluptate delectus nostrum dolore fugiat dolores vero illo facere possimus. Delectus distinctio expedita, dignissimos fuga at nam ipsum, quibusdam cumque aspernatur harum, ea deserunt sapiente minus voluptatibus officia officiis necessitatibus hic. Quibusdam doloribus deserunt sapiente, iusto ullam cum saepe quidem nisi, nihil minima voluptatibus accusantium esse voluptatum harum delectus eius assumenda praesentium deleniti blanditiis dignissimos hic, quo minus placeat, expedita. Iste excepturi hic impedit pariatur eligendi placeat repellendus odit vitae dolores reprehenderit. Et qui unde reiciendis eaque repudiandae non id omnis fugiat ducimus in, atque ex magnam error neque vel quo aperiam nulla ullam harum minus! Repellat rem amet laboriosam deserunt deleniti reprehenderit obcaecati, reiciendis quis iure totam officia, explicabo cupiditate error iusto aperiam nesciunt perspiciatis vel labore, quisquam asperiores veniam atque odio sequi? Vel animi sit voluptatem eum cum numquam dolore voluptatum laudantium obcaecati exercitationem, eaque illum autem dicta quas, a incidunt qui saepe! Distinctio quae eligendi illo rem delectus fuga minima suscipit sapiente ipsum? Ex sapiente rem, repudiandae natus non animi soluta, perspiciatis facere reprehenderit nostrum eius minus aspernatur aperiam dolor quas sed laudantium, ullam veritatis voluptas cupiditate asperiores velit illo architecto. Quidem consequatur nostrum qui quisquam ea nam, eius, provident illum excepturi molestias delectus explicabo. Aliquam temporibus expedita voluptas itaque doloremque asperiores! Tenetur, est. Fuga aperiam harum expedita. Repellendus, reiciendis! Ipsam, ab modi animi numquam? Consequuntur eos pariatur voluptas aperiam ducimus veniam, totam laudantium eveniet eius, fugit magni nisi, quaerat, earum fugiat odit? Nostrum doloremque quibusdam corrupti placeat reiciendis harum blanditiis possimus ipsa optio minima odit fuga, omnis soluta totam. Asperiores ipsa modi, hic labore nisi illum reiciendis. Est reiciendis ipsa repudiandae voluptate temporibus a impedit inventore debitis, expedita odit, rerum iure. Excepturi dolor numquam ratione veritatis, tenetur amet officiis assumenda error ipsum aut harum distinctio quam voluptatum, saepe deleniti quibusdam aspernatur explicabo repellat nihil! Vitae vero officiis repellat laborum quasi eius, cumque incidunt, consequatur minus dolor a odio excepturi maxime iure! Ipsum unde est vero similique, doloremque nemo obcaecati ut id sequi quae culpa commodi consequatur, explicabo ullam a non molestiae consequuntur dolorem laboriosam ab esse magnam, sunt suscipit provident. Delectus natus dolore magni doloribus rem assumenda impedit illum explicabo repellat at suscipit, nemo quasi earum atque, voluptate sequi qui aliquam reprehenderit veritatis dolorem, accusamus consectetur vel! Vero dolor quos rem sint saepe corrupti tenetur quasi! Eum quia aliquam suscipit soluta ad non molestias omnis optio nulla, laboriosam rem autem repellendus explicabo sed provident consequatur nihil repellat corrupti nobis nisi ipsa. Culpa, consequuntur sapiente? Qui necessitatibus ut atque praesentium veniam cum nulla assumenda libero odit ea, suscipit ipsam porro distinctio debitis, cupiditate sunt delectus explicabo eius ducimus incidunt ad corporis. Magni, voluptatibus excepturi architecto recusandae.
 		</div>
 	</aside>
 
 	<!-- SITE HEADER -->
-	<header id="header">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-lg-6">Header</div>
-				<div class="col-12 col-lg-6"><a href="" class="mobile-menu-trigger">Menu</a></div>
+	<?php if( !is_404() && !is_page_template( 'templates/template-thank-you.php' ) ) { ?>
+		<header id="header">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-7 col-xl-3">
+						<a href="<?php echo get_site_url(); ?>/" class="site-logo">
+							<?php
+								$logo     = get_theme_mod( 'site_logo' );
+								$siteName = get_bloginfo( 'name' );
+								if( $logo ){
+									echo "<img src='" . $logo['url'] . "' alt='" . $siteName . "' class='img-fluid'>";
+								} else {
+									echo "<span class='site-name'>" . $siteName . "</span>";
+								}
+							?>
+						</a>
+					</div>
+					<div class="d-none d-xl-block col-xl-9">
+						<?php wp_nav_menu( array(
+							'menu'  => 'Main Menu',
+							'depth' => 3
+						) ); ?>
+					</div>
+					<div class="col-5 d-xl-none text-right">
+						<a href="" class="hamburger-icon" data="mobile-menu-trigger">
+							<b></b>
+							<b></b>
+							<b></b>
+						</a>
+					</div>
+				</div>
 			</div>
-		</div>
-	</header>
+		</header>
+	<?php } ?>
 
 	<!-- MAIN WRAPPER -->
 	<main id="main-wrapper">

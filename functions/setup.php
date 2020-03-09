@@ -10,8 +10,15 @@ add_action( 'wp_enqueue_scripts', function(){
 
 	// JAVASCRIPTS
 	wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array(), '2.8.3', false );
-	wp_enqueue_script( 'jquery', 'https://code.jquery.com/jquery-2.2.4.min.js', array(), '2.2.4', false );
-	wp_enqueue_script( 'main-js', get_template_directory_uri() . '/assets/js/main.js', array( 'jquery' ), '1', true );
+    wp_enqueue_script( 'jquery', 'https://code.jquery.com/jquery-2.2.4.min.js', array(), '2.2.4', false );
+    wp_enqueue_script( 'velocity-js', 'https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js', array( 'jquery' ), '1.2.2', true );
+	wp_enqueue_script( 'theme-defaults-js', get_template_directory_uri() . '/assets/js/theme-defaults.js', array( 'jquery' ), '1', true );
+    wp_enqueue_script( 'main-js', get_template_directory_uri() . '/assets/js/main.js', array( 'jquery' ), '1', true );
+
+    // COMMENTS
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
 }, 10 );
 
 // REMOVE SCRIPT & STYLES ATTR TYPES
@@ -86,9 +93,9 @@ add_action( 'add_attachment', function( $post_ID ){
         $my_image_title = get_post( $post_ID )->post_title;
         $my_image_title = preg_replace( '%\s*[-_\s]+\s*%', ' ',  $my_image_title );
         $my_image_title = ucwords( strtolower( $my_image_title ) );
-        $my_image_meta = array(
-            'ID'        => $post_ID,
-            'post_title'    => $my_image_title,
+        $my_image_meta  = array(
+            'ID'         => $post_ID,
+            'post_title' => $my_image_title,
         );
         update_post_meta( $post_ID, '_wp_attachment_image_alt', $my_image_title );
         wp_update_post( $my_image_meta );
@@ -122,3 +129,124 @@ add_filter( 'wp_get_attachment_image_attributes', function( $attr ){
 // DISABLE GUTENBERG BLOCK EDITOR
 add_filter('use_block_editor_for_post', '__return_false', 10);
 add_filter('use_block_editor_for_post_type', '__return_false', 10);
+
+// HOOK TO WP_HEAD
+add_action( 'wp_head', function(){
+    $tag_manager      = get_theme_mod( 'tag_manager' );
+    $google_analytics = get_theme_mod( 'analytics' );
+    $tracking_code    = get_theme_mod( 'tracking_code' );
+    $tracking_num     = get_theme_mod( 'tracking_number' );
+    $custom_css       = get_theme_mod( 'css_code' );
+?>
+    <?php if ( $tag_manager ){ ?>
+        <!-- TAG MANAGER -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','<?php echo $tag_manager; ?>');</script>
+    <?php } ?>
+
+    <?php if ( $tracking_code && $tracking_num ){ ?>
+        <!-- GOOGLE TRACKING OPTION -->
+        <script>(function(a,e,c,f,g,b,d){var h={ak:"<?php echo $tracking_num; ?>",cl:"<?php echo $tracking_code; ?>"};a[c]=a[c]||function(){(a[c].q=a[c].q||[]).push(arguments)};a[f]||(a[f]=h.ak);b=e.createElement(g);b.async=1;b.src="//www.gstatic.com/wcm/loader.js";d=e.getElementsByTagName(g)[0];d.parentNode.insertBefore(b,d);a._googWcmGet=function(b,d,e){a[c](2,b,h,d,null,new Date,e)}})(window,document,"_googWcmImpl","_googWcmAk","script");
+        </script>
+    <?php } ?>
+
+    <?php if ( $google_analytics ){ ?>
+        <!-- GOOGLE ANALYTICS -->
+        <script>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s  = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    <?php } ?>
+
+    <?php if ( $custom_css ){ ?>
+        <!-- css -->
+        <style>
+            <?php echo $custom_css; ?>
+        </style>
+    <?php } ?>
+<?php
+} );
+
+// AFTER OPENING BODY TAG
+add_action( "after_body_tag", function(){ ?>
+    <?php if ( get_theme_mod( 'tag_manager' ) ){ ?>
+        <!-- TAG MANAGER -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo get_theme_mod( 'tag_manager' ); ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <?php } ?>
+<?php } ); // after_body_tag end
+
+// HOOK TO WP_FOOTER
+add_action( "wp_footer", function(){ ?>
+    <!-- CUSTOM JS -->
+    <?php if ( get_theme_mod( 'js_code' ) ){ ?>
+        <script><?php echo get_theme_mod( 'js_code' ); ?></script>
+    <?php } ?>
+<?php } ); // wp_footer end
+
+// LOGIN PAGE
+add_action( 'login_enqueue_scripts', 'my_login_logo' );
+function my_login_logo() {
+    $logo               = get_theme_mod('site_logo_image');
+    $login_button_color = get_theme_mod('wp_login_button_text_color');
+    $login_button_bg    = get_theme_mod('wp_login_button_bg_color');
+    $login_page_bg      = get_theme_mod('wp_login_bg_color');
+    $login_form_bg      = get_theme_mod('wp_login_box_bg_color');
+?>
+    <style>
+        #login h1 a,
+        body.login h1 a{
+            outline: 0;
+            background-image: url(<?php echo $logo; ?>);
+            height:65px;
+            width: 250px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-bottom:15px;
+        }
+    </style>
+<?php
+    if($login_button_bg || $login_button_color){
+?>
+    <style>
+        body.login #wp-submit{
+            background-color: <?php echo $login_button_bg; ?>;
+            color: <?php echo $login_button_color; ?>;
+            border: 0;
+            box-shadow: none;
+            text-shadow: none;
+        }
+    </style>
+<?php
+    }
+    if($login_page_bg){
+?>
+    <style>
+        body.login{
+            background-color: <?php echo $login_page_bg; ?>;
+        }
+    </style>
+<?php
+    }
+    if($login_form_bg){
+?>
+    <style>
+        body.login #loginform{
+            background-color: <?php echo $login_form_bg; ?>;
+        }
+    </style>
+<?php
+    }
+}
+add_filter( 'login_headerurl', 'my_login_logo_url' );
+function my_login_logo_url() {
+    return home_url();
+}

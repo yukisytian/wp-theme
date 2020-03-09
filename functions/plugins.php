@@ -1,9 +1,6 @@
 <?php
-// INCLUDE PLUGIN.PHP SO WE CAN USE is_plugin_active()
-include_once( ABSPATH.'wp-admin/includes/plugin.php' );
-
 // ACF PLUGIN HOOKS & FUNCTIONS
-if ( class_exists( 'acf' ) ) { 
+/* if ( class_exists( 'acf' ) ) { 
 	// OPTIONS PAGE
 	acf_add_options_page( array(
         'page_title' => 'General Settings',
@@ -17,7 +14,9 @@ if ( class_exists( 'acf' ) ) {
    	// GOOGLE MAP INIT FOR ACF PRO
    	if ( get_field( "google_map_api_key", "option" ) ) {
 		add_action('acf/init', function(){
-			acf_update_setting( "google_api_key", get_field( "google_map_api_key", "option" ) );
+			if( get_theme_mod( "google_api_map_key" ) ){
+				acf_update_setting( "google_api_key", get_theme_mod( "google_map_key" ) );
+			}
 		} );
    	}
 
@@ -48,69 +47,7 @@ if ( class_exists( 'acf' ) ) {
 	            ),
 	    ) );
    	} );
-
-   	// only make these functions work on the front-end side
-   	if ( !is_admin() ) {
-		// HOOK TO wp_head
-	   	add_action( "wp_head", function(){
-		   	$tag_manager      = get_field( 'google_tag_manager', 'option' );
-		   	$google_analytics = get_field( 'google_analytics', 'option' );
-		   	$tracking_code    = get_field( 'google_tracking_code', 'option' );
-			$tracking_num     = get_field( 'google_tracking_number', 'option' );
-			$custom_css       = get_field( 'custom_css', 'option' );
-	   	?>
-		   	<?php if ( $tag_manager ){ ?>
-			   	<!-- TAG MANAGER -->
-		   		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-				})(window,document,'script','dataLayer','<?php echo $tag_manager; ?>');</script>
-		   	<?php } ?>
-			
-		   	<?php if ( $tracking_code && $tracking_num ){ ?>
-				<!-- GOOGLE TRACKING OPTION -->
-		   		<script>(function(a,e,c,f,g,b,d){var h={ak:"<?php echo $tracking_num; ?>",cl:"<?php echo $tracking_code; ?>"};a[c]=a[c]||function(){(a[c].q=a[c].q||[]).push(arguments)};a[f]||(a[f]=h.ak);b=e.createElement(g);b.async=1;b.src="//www.gstatic.com/wcm/loader.js";d=e.getElementsByTagName(g)[0];d.parentNode.insertBefore(b,d);a._googWcmGet=function(b,d,e){a[c](2,b,h,d,null,new Date,e)}})(window,document,"_googWcmImpl","_googWcmAk","script");
-				</script>
-		   	<?php } ?>
-		   	
-		   	<?php if ( $google_analytics ){ ?>
-			   	<!-- GOOGLE ANALYTICS -->
-			   	<script>
-					var _gaq = _gaq || [];
-					_gaq.push(['_setAccount', '<?php echo $google_analytics; ?>']);
-					_gaq.push(['_trackPageview']);
-					(function() {
-						var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-						var s  = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-					})();
-				</script>
-		   	<?php } ?>
-
-		   	<?php if ( $custom_css ){ ?>
-			   	<!-- CUSTOM CSS -->
-		   		<style><?php echo $custom_css; ?></style>
-		   	<?php } ?>
-	   	<?php } ); // wp_head end
-
-	   	// AFTER OPENING BODY TAG
-	   	add_action( "after_body_tag", function(){ ?>
-		   	<?php if ( get_field( 'google_tag_manager', 'option' ) ){ ?>
-		   		<!-- TAG MANAGER -->
-		   		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo get_field( 'google_tag_manager', 'option' ); ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		   	<?php } ?>
-	   	<?php } ); // after_body_tag end
-
-	   	// HOOK TO wp_footer
-	   	add_action( "wp_footer", function(){ ?>
-		   	<?php if ( get_field( 'custom_js', 'option' ) ){ ?>
-				<!-- CUSTOM JS -->
-		   		<script><?php echo get_field( 'custom_js', 'option' ); ?></script>
-		   	<?php } ?>
-	   	<?php } ); // wp_footer end
-   	} // is_admin() end
-}
+} */
 
 // GRAVITY FORMS PLUGIN HOOKS & FUNCTIONS
 // GFORMS TAB INDEX FUNCTION

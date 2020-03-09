@@ -1,0 +1,25 @@
+@media screen{
+	.hamburger-icon{
+		width: 35px;
+		height: 20px;
+		position: relative;
+		cursor: pointer;
+		display: inline-block;
+		b{
+			position: absolute;
+			left: 0;
+			width: 100%;
+			height: 3px;
+			background-color: black;
+			&:nth-child(1) {
+				top: 0;
+			}
+			&:nth-child(2) {
+				top: 50%;
+			}
+			&:nth-child(3) {
+				top: 100%;
+			}
+		}
+	}
+}
