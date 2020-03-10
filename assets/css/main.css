@@ -13332,8 +13332,19 @@ a img.aligncenter {
     background-color: #ededed;
     padding: 1.25rem;
     margin: 0 0 1.25rem; }
+    .default-content blockquote cite {
+      font-style: normal;
+      font-weight: bold;
+      margin-top: 0.9375rem;
+      display: inline-block; }
     .default-content blockquote p:last-of-type {
       margin: 0; }
+  .default-content .wp-block-gallery .blocks-gallery-grid {
+    padding: 0;
+    margin: 0; }
+  .default-content .wp-block-cover .wp-block-cover__inner-container p {
+    font-weight: bold;
+    font-size: 1.5rem; }
   .default-content p {
     margin: 0 0 1.25rem;
     font-weight: normal;

@@ -1,3 +1,46 @@
+// DEFAULT SLIDES
+var sliders = document.querySelectorAll( '.slider' );
+if ( sliders.length > 0 ) {
+    $.each( sliders, function ( index, value ) {
+        var sliderItems       = $( value ).data( 'items' ),
+            sliderAutoPlay    = $( value ).data( 'autoplay' ),
+            sliderLoop        = $( value ).data( 'loop' ),
+            sliderSpeed       = $( value ).data( 'slide-speed' ) ? $( value ).data( 'slide-speed' ) : "300" , // slide change transition speed
+            sliderTransition  = $( value ).data( 'time-before-slide' ) ? $( value ).data( 'time-before-slide' ) + "000" : "8000", // autoplay slide change transition speed
+            slideCount        = $( value ).data( 'slide-count' ) ? $( value ).data( 'slide-count' ) : 'page', // number of slides to show in one click
+            centerSlides      = $( value ).data( 'center-slides' ), // center the slides
+            controls          = $( value ).data( 'controls' ), // enable next prev buttons
+            sliderNav         = $( value ).data( 'slider-nav' ), // enable slider nav dots
+            mouseDrag         = $( value ).data( 'mousedrag' ), // enable mouse drag
+            edgePadding       = $( value ).data( 'edge-padding' ), // outside space -- panghatak sa elements
+            autoWidth         = $( value ).data( 'auto-width' ), // auto width items
+            startIndex        = $( value ).data( 'start-index' ), // slider start
+            responsiveOptions = $( value ).data( 'responsive-options' );
+
+        var slider = tns( {
+            container: value,
+            items: sliderItems,
+            autoplay: sliderAutoPlay,
+            startIndex: startIndex, // slider start
+            loop: sliderLoop,
+            speed: sliderSpeed, // slide change transition speed
+            mouseDrag: mouseDrag, // enable mouse drag
+            center: centerSlides, // center the slides
+            edgePadding: edgePadding, // outside space -- panghatak sa elements
+            autoWidth: autoWidth, // auto width items
+            slideBy: slideCount, // number of slides to show in one click
+            controls: controls, // enable next prev buttons
+            controlsPosition: 'bottom', // position of the prev next buttons
+            nav: sliderNav, // enable slider nav dots
+            navPosition: 'bottom', // position of the nav dots
+            autoplayPosition: 'bottom', // autoplay button position
+            autoplayButtonOutput: false, // hide autoplay button
+            autoplayTimeout: sliderTransition, // autoplay slide change transition speed
+            responsive: responsiveOptions // responsive options declared
+        } );
+    } )
+}
+
 $( document ).ready( function(){
     $( window ).on( 'load', function(){
         mobileMenuAlignment(); // MOBILE MENU DYNAMIC MARGIN & PADDING

@@ -23,9 +23,29 @@
       background-color: #ededed;
       padding: 20px;
       margin: 0 0 20px;
+      cite{
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 15px;
+        display: inline-block;
+      }
       p{
         &:last-of-type{
           margin: 0;
+        }
+      }
+    }
+    .wp-block-gallery{
+      .blocks-gallery-grid{
+        padding: 0;
+        margin: 0;
+      }
+    }
+    .wp-block-cover{
+      .wp-block-cover__inner-container{
+        p{
+          font-weight: bold;
+          font-size: 24px;
         }
       }
     }

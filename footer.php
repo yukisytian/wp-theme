@@ -11,7 +11,6 @@
 			</div>
 		</div>
 	</footer>
-	<?php wp_footer(); ?>
 
 	<!-- CONTACT FORM MODAL -->
 	<?php
@@ -38,5 +37,7 @@
 			</div>
 		</div>
 	<?php } ?>
+
+	<?php wp_footer(); ?>
 </body>
 </html>

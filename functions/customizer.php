@@ -256,7 +256,7 @@ Kirki::add_section( 'additional_js_css_section', array(
 Kirki::add_section( 'ccm_loader_settings_section', array(
     'title'    => esc_html__( 'Site Loaders / Loading Icons', 'kirki' ),
     'panel'    => 'theme_options',
-    'priority' => 2,
+    'priority' => 19,
 ) );
 
     Kirki::add_field( 'ccm_enable_site_loader', [
@@ -296,6 +296,65 @@ Kirki::add_section( 'ccm_loader_settings_section', array(
         'choices'     => [
             'save_as' => 'array',
         ]
+    ] );
+
+// ====================================================================
+// SLIDER SETTINGS
+Kirki::add_section( 'ccm_slider_settings_section', array(
+    'title'    => esc_html__( 'Slider Settings', 'kirki' ),
+    'panel'    => 'theme_options',
+    'priority' => 18,
+) );
+    Kirki::add_field( 'ccm_enable_slider_autoplay', [
+        'type'        => 'switch',
+        'settings'    => 'enable_slider_autoplay',
+        'label'       => esc_html__( 'Autoplay', 'kirki' ),
+        'section'     => 'ccm_slider_settings_section',
+        'default'     => '1',
+        'priority'    => 1,
+        'choices'     => [
+            'on'  => esc_html__( 'Enable', 'kirki' ),
+            'off' => esc_html__( 'Disable', 'kirki' ),
+        ],
+    ] );
+
+    Kirki::add_field( 'ccm_enable_slider_mousedrag', [
+        'type'        => 'switch',
+        'settings'    => 'enable_slider_mousedrag',
+        'label'       => esc_html__( 'Enable Mousedrag', 'kirki' ),
+        'section'     => 'ccm_slider_settings_section',
+        'default'     => '1',
+        'priority'    => 1,
+        'choices'     => [
+            'on'  => esc_html__( 'Enable', 'kirki' ),
+            'off' => esc_html__( 'Disable', 'kirki' ),
+        ],
+    ] );
+
+    Kirki::add_field( 'ccm_slide_transition_time', [
+        'type'        => 'number',
+        'settings'    => 'slide_transition_time',
+        'label'       => esc_html__( 'Slide Transition Time (per second)', 'kirki' ),
+        'section'     => 'ccm_slider_settings_section',
+        'default'     => 8,
+        'choices'     => [
+            'min'  => 1,
+            'max'  => 99,
+            'step' => 1,
+        ],
+    ] );
+
+    Kirki::add_field( 'ccm_slide_speed', [
+        'type'        => 'number',
+        'settings'    => 'slide_speed',
+        'label'       => esc_html__( 'Slide Speed (per millisecond)', 'kirki' ),
+        'section'     => 'ccm_slider_settings_section',
+        'default'     => 300,
+        'choices'     => [
+            'min'  => 100,
+            'max'  => 9999,
+            'step' => 100,
+        ],
     ] );
 
 // ====================================================================
