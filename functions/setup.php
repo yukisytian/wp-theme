@@ -11,6 +11,7 @@ add_action( 'wp_enqueue_scripts', function(){
 	// JAVASCRIPTS
 	wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array(), '2.8.3', false );
     wp_enqueue_script( 'jquery', 'https://code.jquery.com/jquery-2.2.4.min.js', array(), '2.2.4', false );
+    wp_enqueue_script( 'bootstrap-bundle', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js', array(), '4.4.1', false );
     wp_enqueue_script( 'velocity-js', 'https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js', array( 'jquery' ), '1.2.2', true );
 	wp_enqueue_script( 'theme-defaults-js', get_template_directory_uri() . '/assets/js/theme-defaults.js', array( 'jquery' ), '1', true );
     wp_enqueue_script( 'main-js', get_template_directory_uri() . '/assets/js/main.js', array( 'jquery' ), '1', true );
@@ -195,7 +196,7 @@ add_action( "wp_footer", function(){ ?>
 // LOGIN PAGE
 add_action( 'login_enqueue_scripts', 'my_login_logo' );
 function my_login_logo() {
-    $logo               = get_theme_mod('site_logo_image');
+    $logo               = get_theme_mod('site_logo');
     $login_button_color = get_theme_mod('wp_login_button_text_color');
     $login_button_bg    = get_theme_mod('wp_login_button_bg_color');
     $login_page_bg      = get_theme_mod('wp_login_bg_color');
@@ -205,11 +206,13 @@ function my_login_logo() {
         #login h1 a,
         body.login h1 a{
             outline: 0;
-            background-image: url(<?php echo $logo; ?>);
-            height:65px;
-            width: 250px;
-            background-size: contain;
+            background-image: url(<?php echo $logo['url']; ?>);
+            height: 65px;
+            width: 100%;
+            max-width: 250px;
+            background-size: initial;
             background-repeat: no-repeat;
+            background-position: center;
             margin-bottom:15px;
         }
     </style>
@@ -250,3 +253,13 @@ add_filter( 'login_headerurl', 'my_login_logo_url' );
 function my_login_logo_url() {
     return home_url();
 }
+
+// ADD LOADING CLASS TO THE BODY FOR THE LOADER
+add_filter( 'body_class', function( $classes ) {
+    $enableLoader = get_theme_mod( 'enable_site_loader' );
+    if ( $enableLoader == true ) {
+        return array_merge( $classes, array( 'site-is-loading' ) );
+    } else {
+        return $classes;
+    }
+} );

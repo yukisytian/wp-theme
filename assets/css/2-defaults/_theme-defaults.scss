@@ -20,6 +20,11 @@
   #main-wrapper{
     flex: 1 0 auto;
     position: relative;
+    padding-top: 58px;
+    overflow-x: hidden;
+    @media (min-width: 1200px){
+      padding-top: 74px;
+    }
   }
 
   /*footer*/

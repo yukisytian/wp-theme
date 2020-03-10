@@ -252,6 +252,53 @@ Kirki::add_section( 'additional_js_css_section', array(
     ] );
 
 // ====================================================================
+// SITE LOADERS
+Kirki::add_section( 'ccm_loader_settings_section', array(
+    'title'    => esc_html__( 'Site Loaders / Loading Icons', 'kirki' ),
+    'panel'    => 'theme_options',
+    'priority' => 2,
+) );
+
+    Kirki::add_field( 'ccm_enable_site_loader', [
+        'type'        => 'switch',
+        'settings'    => 'enable_site_loader',
+        'label'       => esc_html__( 'Enable Site Loader', 'kirki' ),
+        'section'     => 'ccm_loader_settings_section',
+        'default'     => '1',
+        'priority'    => 1,
+        'choices'     => [
+            'on'  => esc_html__( 'Enable', 'kirki' ),
+            'off' => esc_html__( 'Disable', 'kirki' ),
+        ],
+    ] );
+
+    Kirki::add_field( 'ccm_site_loader', [
+        'type'        => 'image',
+        'settings'    => 'site_loader',
+        'label'       => esc_html__( 'Site Loader', 'kirki' ),
+        'description' => esc_html__( 'General Site Loader', 'kirki' ),
+        'section'     => 'ccm_loader_settings_section',
+        'default'     => '',
+        'priority'    => 2,
+        'choices'     => [
+            'save_as' => 'array',
+        ]
+    ] );
+
+    Kirki::add_field( 'ccm_gform_spinner', [
+        'type'        => 'image',
+        'settings'    => 'gform_spinner',
+        'label'       => esc_html__( 'Custom Gravity Form Spinner', 'kirki' ),
+        'description' => esc_html__( '60x60 gif spinner', 'kirki' ),
+        'section'     => 'ccm_loader_settings_section',
+        'default'     => '',
+        'priority'    => 3,
+        'choices'     => [
+            'save_as' => 'array',
+        ]
+    ] );
+
+// ====================================================================
 // HEADER SECTION
 Kirki::add_section( 'header_section', array(
     'title'    => esc_html__( 'Header Settings', 'kirki' ),

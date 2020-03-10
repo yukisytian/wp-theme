@@ -15,6 +15,15 @@
 	<!-- Don't remove this -->
 	<?php do_action( "after_body_tag" ); ?>
 
+	<!-- SITE LOADER -->
+	<?php
+		$enableLoader = get_theme_mod( 'enable_site_loader' );
+		$siteLoader   = get_theme_mod( 'site_loader' );
+		if ( $enableLoader && $siteLoader ) {
+			echo "<div class='site-loader'><div class='spinner' style='background-image: url(" . $siteLoader['url'] . ");'></div></div>";
+		}
+	?>
+
 	<!--[if lt IE 9]>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 	<![endif]-->
@@ -40,40 +49,38 @@
 	</aside>
 
 	<!-- SITE HEADER -->
-	<?php if( !is_404() && !is_page_template( 'templates/template-thank-you.php' ) ) { ?>
-		<header id="header">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-7 col-xl-3">
-						<a href="<?php echo get_site_url(); ?>/" class="site-logo">
-							<?php
-								$logo     = get_theme_mod( 'site_logo' );
-								$siteName = get_bloginfo( 'name' );
-								if( $logo ){
-									echo "<img src='" . $logo['url'] . "' alt='" . $siteName . "' class='img-fluid'>";
-								} else {
-									echo "<span class='site-name'>" . $siteName . "</span>";
-								}
-							?>
-						</a>
-					</div>
-					<div class="d-none d-xl-block col-xl-9">
-						<?php wp_nav_menu( array(
-							'menu'  => 'Main Menu',
-							'depth' => 3
-						) ); ?>
-					</div>
-					<div class="col-5 d-xl-none text-right">
-						<a href="" class="hamburger-icon" data="mobile-menu-trigger">
-							<b></b>
-							<b></b>
-							<b></b>
-						</a>
-					</div>
+	<header id="header">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-7 col-xl-3">
+					<a href="<?php echo get_site_url(); ?>/" class="site-logo">
+						<?php
+							$logo     = get_theme_mod( 'site_logo' );
+							$siteName = get_bloginfo( 'name' );
+							if( $logo ){
+								echo "<img src='" . $logo['url'] . "' alt='" . $siteName . "' class='img-fluid'>";
+							} else {
+								echo "<span class='site-name'>" . $siteName . "</span>";
+							}
+						?>
+					</a>
+				</div>
+				<div class="d-none d-xl-block col-xl-9">
+					<?php wp_nav_menu( array(
+						'menu'  => 'Main Menu',
+						'depth' => 3
+					) ); ?>
+				</div>
+				<div class="col-5 d-xl-none text-right">
+					<a href="" class="hamburger-icon" data="mobile-menu-trigger">
+						<b></b>
+						<b></b>
+						<b></b>
+					</a>
 				</div>
 			</div>
-		</header>
-	<?php } ?>
+		</div>
+	</header>
 
 	<!-- MAIN WRAPPER -->
 	<main id="main-wrapper">

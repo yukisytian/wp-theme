@@ -1,6 +1,15 @@
 $( document ).ready( function(){
     $( window ).on( 'load', function(){
         mobileMenuAlignment(); // MOBILE MENU DYNAMIC MARGIN & PADDING
+
+        // SITE LOADER
+        if ( $( "body" ).hasClass( 'site-is-loading' ) ) {
+            $( ".site-loader" ).css( "opacity", 0 );
+            setTimeout( function(){
+                $( "body" ).removeClass( 'site-is-loading' );
+                $( ".site-loader" ).remove();
+            }, 300 );
+        }
     } );
 
     $( window ).on( 'resize', function(){
