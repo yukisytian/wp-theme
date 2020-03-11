@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-<h3>Test Slider w/ Data Settings</h3>
 <style>
 	.slider .slide-item.tns-item{
 		color: white;
@@ -12,6 +11,7 @@
 		border: 1px solid black;
 	}
 </style>
+<h3>Test Slider w/ Data Settings</h3>
 <?php
 	$responsiveOptions = [
 		'480' => [
@@ -49,6 +49,8 @@
 	<div class="slide-item"><div class="wrap">6</div></div>
 	<div class="slide-item"><div class="wrap">7</div></div>
 </div>
+
+<h3 class="mt-5">Test Default Slider</h3>
 <div class="slider" data-autoplay='false'>
 	<div class="slide-item"><div class="wrap">a</div></div>
 	<div class="slide-item"><div class="wrap">b</div></div>
@@ -57,4 +59,6 @@
 	<div class="slide-item"><div class="wrap">e</div></div>
 	<div class="slide-item"><div class="wrap">f</div></div>
 </div>
+
+<button class="btn mt-5" data-toggle="modal" data-target="#contactModal">Default Modal</button>
 <?php get_footer(); ?>
